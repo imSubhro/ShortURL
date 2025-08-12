@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+// For Vercel deployment, use relative paths to serverless functions
+const API_BASE_URL = '';
 
 // Create axios instance with default config
 const api = axios.create({
@@ -50,7 +51,7 @@ api.interceptors.response.use(
       }
     } else if (error.request) {
       // Network error
-      throw new Error('Unable to connect to server. Please check your internet connection and make sure the backend is running.');
+      throw new Error('Unable to connect to server. Please check your internet connection.');
     } else {
       // Other error
       throw new Error(error.message || 'Something went wrong. Please try again.');

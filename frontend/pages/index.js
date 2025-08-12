@@ -1,106 +1,81 @@
 import { useState } from 'react';
 import Head from 'next/head';
-import Header from '../components/Header';
 import UrlShortener from '../components/UrlShortener';
-import Features from '../components/Features';
-import HowItWorks from '../components/HowItWorks';
-import Footer from '../components/Footer';
 
 export default function Home() {
-  const [showHowItWorks, setShowHowItWorks] = useState(false);
-
   return (
     <>
       <Head>
         <title>ShortURL - Fast & Reliable URL Shortener</title>
         <meta name="description" content="Transform your long URLs into short, shareable links instantly. Free, fast, and reliable URL shortener with click analytics." />
         <meta name="keywords" content="url shortener, short links, link shortener, free url shortener, shorten url, short url" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link rel="canonical" href="https://your-domain.com" />
       </Head>
       
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-        <Header onHowItWorksClick={() => setShowHowItWorks(true)} />
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-x-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-gradient-to-tr from-indigo-500/20 to-pink-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-full blur-2xl"></div>
+        </div>
         
-        {/* Hero Section with URL Shortener */}
-        <main className="relative">
-          {/* Background Elements */}
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute -top-40 -right-32 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-600/20 rounded-full blur-3xl"></div>
-            <div className="absolute -bottom-40 -left-32 w-80 h-80 bg-gradient-to-tr from-indigo-400/20 to-pink-600/20 rounded-full blur-3xl"></div>
-          </div>
-          
-          {/* Hero Content with URL Shortener */}
-          <section className="relative pt-12 pb-20 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto">
-              <div className="text-center mb-12">
-                <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-6">
-                  <span className="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-pulse"></span>
-                  Free • Fast • Reliable
-                </div>
-                
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                  Shorten URLs
-                  <span className="block text-gradient bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                    Instantly
-                  </span>
-                </h1>
-                
-                <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
-                  Transform your long URLs into short, shareable links with our lightning-fast URL shortener
-                </p>
-                
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-                  <div className="flex items-center text-gray-600">
-                    <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    No registration required
-                  </div>
-                  <div className="flex items-center text-gray-600">
-                    <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    Unlimited URLs
-                  </div>
-                  <div className="flex items-center text-gray-600">
-                    <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    Click analytics
-                  </div>
-                </div>
-              </div>
-              
-              <UrlShortener />
+        {/* Main Content */}
+        <div className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-8">
+          {/* Header */}
+          <div className="text-center mb-6 sm:mb-8 flex-shrink-0">
+            <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 bg-white/10 backdrop-blur-sm text-white rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 border border-white/20">
+              <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+              Free • Fast • Reliable
             </div>
-          </section>
-          
-          <Features />
-        </main>
-        
-        <Footer />
-
-        {/* How It Works Modal */}
-        {showHowItWorks && (
-          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative">
-              {/* Close Button */}
-              <button
-                onClick={() => setShowHowItWorks(false)}
-                className="absolute top-4 right-4 z-10 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors duration-200"
-              >
-                <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 leading-tight">
+              Shorten URLs
+              <span className="block bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Instantly
+              </span>
+            </h1>
+            
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-xl sm:max-w-2xl mx-auto mb-4 sm:mb-6 px-2">
+              Transform your long URLs into short, shareable links with our lightning-fast URL shortener
+            </p>
+            
+            {/* Quick Features */}
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-8">
+              <div className="flex items-center text-gray-300 text-xs sm:text-sm">
+                <svg className="w-3 h-3 sm:w-4 sm:h-4 text-green-400 mr-1.5 sm:mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
-              </button>
-              
-              {/* Modal Content */}
-              <div className="p-8">
-                <HowItWorks />
+                No registration
+              </div>
+              <div className="flex items-center text-gray-300 text-xs sm:text-sm">
+                <svg className="w-3 h-3 sm:w-4 sm:h-4 text-green-400 mr-1.5 sm:mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                Unlimited URLs
+              </div>
+              <div className="flex items-center text-gray-300 text-xs sm:text-sm">
+                <svg className="w-3 h-3 sm:w-4 sm:h-4 text-green-400 mr-1.5 sm:mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                Click analytics
               </div>
             </div>
           </div>
-        )}
+          
+          {/* URL Shortener Component */}
+          <div className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl flex-grow flex items-center justify-center">
+            <UrlShortener />
+          </div>
+          
+          {/* Footer */}
+          <div className="mt-6 sm:mt-8 flex-shrink-0">
+            <p className="text-gray-400 text-xs sm:text-sm text-center">
+              Made with ❤️ by ImSubhro
+            </p>
+          </div>
+        </div>
       </div>
     </>
   );
