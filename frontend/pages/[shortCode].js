@@ -1,65 +1,50 @@
-import mongoose from 'mongoose';
-
-// URL Schema
-const urlSchema = new mongoose.Schema({
-  longUrl: { type: String, required: true, trim: true },
-  shortCode: { type: String, required: true, unique: true, trim: true },
-  shortUrl: { type: String, required: true, trim: true },
-  clicks: { type: Number, default: 0 },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now }
-});
-
-const Url = mongoose.models.Url || mongoose.model('Url', urlSchema);
-
-// Connect to MongoDB
-const connectDB = async () => {
-  if (mongoose.connections[0].readyState) {
-    return;
-  }
-  
-  try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-  } catch (error) {
-    console.error('MongoDB connection error:', error);
-    throw error;
-  }
-};
-
 export async function getServerSideProps(context) {
   const { shortCode } = context.params;
 
+  // Skip favicon and other static files
+  if (shortCode === 'favicon.ico' || shortCode.includes('.')) {
+    return { notFound: true };
+  }
   console.log('🔍 Redirect request for shortCode:', shortCode);
 
   try {
-    await connectDB();
+    // Get the backend API URL from environment variables
+    const backendUrl = process.env.BACKEND_API_URL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+    
+    // Fetch URL data from backend API (not the redirect endpoint)
+    const response = await fetch(`${backendUrl}/api/stats/${shortCode}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-    const url = await Url.findOne({ shortCode });
-
-    if (!url) {
+    if (!response.ok) {
       console.log('❌ Short code not found:', shortCode);
       return {
         notFound: true,
       };
     }
 
-    console.log('✅ Found URL:', url.longUrl);
-    console.log('📊 Current clicks:', url.clicks);
+    const data = await response.json();
+    
+    if (data.success && data.data.longUrl) {
+      console.log('✅ Found URL:', data.data.longUrl);
+      console.log('🔄 Redirecting to:', data.data.longUrl);
 
-    // Increment click count
-    url.clicks += 1;
-    await url.save();
+      // Increment click count by calling the redirect endpoint
+      fetch(`${backendUrl}/${shortCode}`, { method: 'GET' }).catch(console.error);
 
-    console.log('🔄 Redirecting to:', url.longUrl);
+      return {
+        redirect: {
+          destination: data.data.longUrl,
+          permanent: false,
+        },
+      };
+    }
 
     return {
-      redirect: {
-        destination: url.longUrl,
-        permanent: false,
-      },
+      notFound: true,
     };
   } catch (error) {
     console.error('❌ Redirect error:', error);
@@ -68,6 +53,7 @@ export async function getServerSideProps(context) {
     };
   }
 }
+
 
 export default function RedirectPage() {
   return (

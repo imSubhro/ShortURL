@@ -7,10 +7,16 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "prod": "NODE_ENV=production node server.js",
+    "build": "echo 'Backend build completed'",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "lint": "eslint .",
-    "clean": "rm -rf node_modules package-lock.json && npm install"
+    "lint:fix": "eslint . --fix",
+    "clean": "rm -rf node_modules package-lock.json && npm install",
+    "docker:build": "docker build -t shorturl-backend .",
+    "docker:run": "docker run -p 5000:5000 shorturl-backend",
+    "healthcheck": "node healthcheck.js"
   },
   "keywords": [
     "url-shortener",

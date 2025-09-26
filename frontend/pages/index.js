@@ -6,11 +6,11 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>ShortURL - Fast & Reliable URL Shortener</title>
-        <meta name="description" content="Transform your long URLs into short, shareable links instantly. Free, fast, and reliable URL shortener with click analytics." />
+        <title>{process.env.NEXT_PUBLIC_SITE_NAME || 'ShortURL'} - Fast & Reliable URL Shortener</title>
+        <meta name="description" content={process.env.NEXT_PUBLIC_SITE_DESCRIPTION || "Transform your long URLs into short, shareable links instantly. Free, fast, and reliable URL shortener with click analytics."} />
         <meta name="keywords" content="url shortener, short links, link shortener, free url shortener, shorten url, short url" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <link rel="canonical" href="https://your-domain.com" />
+        <link rel="canonical" href={process.env.NEXT_PUBLIC_SITE_URL || "https://your-domain.com"} />
       </Head>
       
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-x-hidden">

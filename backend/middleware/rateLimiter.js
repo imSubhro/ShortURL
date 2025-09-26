@@ -2,8 +2,8 @@ const rateLimit = require('express-rate-limit');
 
 // Rate limiter for URL shortening
 const shortenLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 10, // Limit each IP to 10 requests per windowMs
+  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000, // 15 minutes default
+  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 10, // Limit each IP to 10 requests per windowMs default
   message: {
     success: false,
     error: 'Too many URL shortening requests, please try again later.'
